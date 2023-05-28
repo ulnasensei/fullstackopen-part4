@@ -96,6 +96,18 @@ describe('blogs delete', () => {
   });
 });
 
+describe('blogs update', () => {
+  test('update blog by id', async() => {
+    const blogs = await api.get('/api/blogs');
+
+    const id = blogs.body[0].id;
+
+    const updatedBlog = await api.put(`/api/blogs/${id}`).send({ likes: 200 }).expect(200);
+
+    expect(updatedBlog.body.likes).toEqual(200);
+  });
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
