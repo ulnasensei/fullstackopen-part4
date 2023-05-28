@@ -64,6 +64,26 @@ describe('blogs post', () => {
 
     expect(savedBlog.body.likes).toEqual(0);
   });
+  test('return 400 if title is missing from request', async() => {
+    await api
+      .post('/api/blogs')
+      .send({
+        author: 'test author 3',
+        url: 'test url 3',
+        likes: 1
+      })
+      .expect(400);
+  });
+  test('return 400 if url is missing from request', async() => {
+    await api
+      .post('/api/blogs')
+      .send({
+        title: 'testing no url request',
+        author: 'test author 4',
+        likes: 1
+      })
+      .expect(400);
+  });
 });
 
 afterAll(async () => {

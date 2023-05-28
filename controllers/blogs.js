@@ -9,6 +9,8 @@ blogsRouter.get('/', async (request, response) => {
 });
 
 blogsRouter.post('/', async (request, response) => {
+  if (typeof(request.body.title) === 'undefined') return response.status(400).end();
+  if (typeof(request.body.url) === 'undefined') return response.status(400).end();
   const blog = new Blog(request.body);
 
   const savedBlog = await blog.save();
