@@ -86,6 +86,16 @@ describe('blogs post', () => {
   });
 });
 
+describe('blogs delete', () => {
+  test('delete blog by id', async() => {
+    const blogs = await api.get('/api/blogs');
+
+    const id = blogs.body[0].id;
+
+    await api.delete(`/api/blogs/${id}`).expect(204);
+  });
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
