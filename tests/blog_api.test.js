@@ -43,6 +43,13 @@ describe('blogs post', () => {
 
     expect(response.body).toHaveLength(helper.initialBlogs.length + 1);
   });
+
+  test('likes set to 0 if missing from request', async() => {
+    const blog = new Blog({ title: 'testing post', author: 'test author', url: 'test url' });
+    const savedBlog = await blog.save();
+
+    expect(savedBlog.likes).toEqual(0);
+  });
 });
 
 afterAll(async () => {
