@@ -26,6 +26,11 @@ describe('blogs get', () => {
 
     expect(response.body).toHaveLength(2);
   });
+  test('unique identifier property is named id', async() => {
+    const response = await api.get('/api/blogs');
+
+    expect(response.body[0].id).toBeDefined();
+  });
 
 });
 
