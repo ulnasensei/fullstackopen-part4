@@ -24,7 +24,7 @@ describe('blogs get', () => {
   test('expect 2 blogs to be returned', async() => {
     const response = await api.get('/api/blogs ');
 
-    expect(response.body).toHaveLength(2);
+    expect(response.body).toHaveLength(helper.initialBlogs.length);
   });
   test('unique identifier property is named id', async() => {
     const response = await api.get('/api/blogs');
@@ -32,6 +32,17 @@ describe('blogs get', () => {
     expect(response.body[0].id).toBeDefined();
   });
 
+});
+
+describe('blogs post', () => {
+  test('blog saved successfully', async() => {
+    const blog = new Blog({ title: 'testing post', author: 'test author', url: 'test url', likes: 1 });
+    await blog.save();
+
+    const response = await api.get('/api/blogs ');
+
+    expect(response.body).toHaveLength(helper.initialBlogs.length + 1);
+  });
 });
 
 afterAll(async () => {
